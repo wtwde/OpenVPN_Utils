@@ -1,0 +1,82 @@
+#!/bin/bash
+
+
+
+usage="Script to build the the openVPN certificate automatically.
+
+usage:
+    bash $(basename "$0") [-h|--help] -n <name> -p <purpose>
+
+where:
+    -h|--help         show this help text
+    -n|--name         name of the user of openVPN
+        <name>
+    -p|--purpose      the purpose of usr this openVPN 
+        <purpose>
+     "
+
+if [[ $# < 1 ]];then
+    echo "need more parament you can use commend bash $(basename "$0") -h"
+    exit 1
+fi
+while [[ $# > 0 ]]
+    do
+    key="$1"
+    case $key in
+        -h|--help)
+            echo "$usage"
+            exit 0
+            shift
+        ;;
+        -n|--name)
+            name=$2
+            echo $name
+            if [[ $# < 4 ]];then
+                echo "need more parament you can use commendi bash $(basename "$0") -h"
+                exit 1
+            fi
+            shift
+        ;;
+        -p|--purpose)
+            purpose="$2"
+            echo $purpose
+            shift
+        ;;
+        *)
+            echo "unknown option $1 $2"
+            exit 1
+        ;;
+    esac
+    shift # past argument or value
+done
+cd /etc/openvpn/easy-rsa/
+
+source vars
+
+# Make a certificate/private key pair using a locally generated
+# root certificate.
+#if [  -z $2 ]; then  
+#  echo "please enter the purpose at the second parament"
+#  exit 1  
+#fi 
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool"  $name
+
+echo name: $name >>/home/openvpn.info
+echo purpose: $purpose >>/home/openvpn.info
+echo time: $(date)>>/home/openvpn.info
+echo "">>//home/openvpn.info
+
+cd keys/
+
+cp template.ovpn $name.ovpn
+cp ca.crt ca_$name.crt
+#sed -i "s/test_key/$1/g" $name.ovpn
+echo  ca ca_$name.crt>>$name.ovpn
+echo  cert $name.crt>>$name.ovpn
+echo  key $name.key>>$name.ovpn
+
+
+tar -czvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
+
+
