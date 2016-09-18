@@ -1,6 +1,9 @@
 #!/bin/bash
 
-
+if [[ $(whoami) != "root" ]];then
+    echo "Permission denied please change to user of root"
+    exit 1
+fi
 
 usage="Script to build the the openVPN certificate automatically.
 
