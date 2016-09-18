@@ -4,7 +4,7 @@ if [[ $(whoami) != "root" ]];then
     echo "Permission denied please change to user of root"
     exit 1
 fi
-KEY=/home/opnfv
+KEY=/home/opnfv/openvpnkeys
 if [ ! -d "$KEY"]; then 
     mkdir "$KEY" 
 fi 
