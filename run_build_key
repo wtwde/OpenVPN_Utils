@@ -49,7 +49,9 @@ while [[ $# > 0 ]]
     esac
     shift # past argument or value
 done
-cd /etc/openvpn/easy-rsa/
+WORK_DIR=/etc/openvpn/easy-rsa
+WORK_KEYS=$WORK_DIR/keys
+cd $WORK_DIR
 
 source vars
 
@@ -67,7 +69,7 @@ echo purpose: $purpose >>/home/openvpn.info
 echo time: $(date)>>/home/openvpn.info
 echo "">>//home/openvpn.info
 
-cd keys/
+cd $WORK_KEYS
 
 cp template.ovpn $name.ovpn
 cp ca.crt ca_$name.crt
