@@ -4,7 +4,10 @@ if [[ $(whoami) != "root" ]];then
     echo "Permission denied please change to user of root"
     exit 1
 fi
-
+KEY=/home/opnfv
+if [ ! -d "$KEY"]; then 
+    mkdir "$KEY" 
+fi 
 usage="Script to build the the openVPN certificate automatically.
 
 usage:
@@ -83,5 +86,5 @@ echo  key $name.key>>$name.ovpn
 
 
 tar -czvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
-
+cp $name.tar $KEY
 
