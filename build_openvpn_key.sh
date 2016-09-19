@@ -31,13 +31,11 @@ while [[ $# > 0 ]]
     key="$1"
     case $key in
         -h|--help)
-            echo "$usage"
             exit 0
             shift
         ;;
         -n|--name)
             name=$2
-            echo $name
             if [[ $# < 4 ]];then
                 echo "need more parament you can use commendi bash $(basename "$0") -h"
                 exit 1
