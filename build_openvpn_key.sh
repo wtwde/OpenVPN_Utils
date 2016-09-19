@@ -4,9 +4,10 @@ if [[ $(whoami) != "root" ]];then
     echo "Permission denied please change to user of root"
     exit 1
 fi
+Git_Dir=$(pwd)
 KEY=/home/opnfv/openvpnkeys
-if [ ! -d "$KEY"]; then 
-    mkdir "$KEY" 
+if [[ ! -d "$KEY" ]]; then 
+    mkdir -p "$KEY" 
 fi 
 usage="Script to build the the openVPN certificate automatically.
 
@@ -77,7 +78,7 @@ echo "">>//home/openvpn.info
 
 cd $WORK_KEYS
 
-cp template.ovpn $name.ovpn
+cp $Git_Dir/template.ovpn $name.ovpn
 cp ca.crt ca_$name.crt
 #sed -i "s/test_key/$1/g" $name.ovpn
 echo  ca ca_$name.crt>>$name.ovpn
