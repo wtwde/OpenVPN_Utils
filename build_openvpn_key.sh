@@ -31,6 +31,7 @@ while [[ $# > 0 ]]
     key="$1"
     case $key in
         -h|--help)
+            echo "$usage"
             exit 0
             shift
         ;;
@@ -79,9 +80,9 @@ cd $WORK_KEYS
 cp $Git_Dir/template.ovpn $name.ovpn
 cp ca.crt ca_$name.crt
 #sed -i "s/test_key/$1/g" $name.ovpn
-echo  ca ca_$name.crt>>$name.ovpn
-echo  cert $name.crt>>$name.ovpn
-echo  key $name.key>>$name.ovpn
+echo -e ca ca_$name.crt'\n\r'>>$name.ovpn
+echo -e cert $name.crt'\n\r'>>$name.ovpn
+echo -e  key $name.key'\n\r'>>$name.ovpn
 
 
 tar -czvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
