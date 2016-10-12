@@ -85,6 +85,6 @@ echo -e cert $name.crt'\n\r'>>$name.ovpn
 echo -e  key $name.key'\n\r'>>$name.ovpn
 
 
-tar -czvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
+tar -cvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
 cp $name.tar $KEY
 
