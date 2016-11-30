@@ -57,6 +57,23 @@ while [[ $# > 0 ]]
 done
 WORK_DIR=/etc/openvpn/easy-rsa
 WORK_KEYS=$WORK_DIR/keys
+
+
+
+echo Generate user guide:
+USER_GUIDE="OpenVPN_USER_GUIDE"
+USER_GUIDE_TMPL="$USER_GUIDE.tmpl"
+OVPN_FILE="$name.ovpn"
+CONF_FILES="ca_$name.crt/$name.crt/$name.key/$OVPN_FILE"
+
+sed -e "s#CONF_FILES#${CONF_FILES}#g" \
+    -e "s#OVPN_FILE#${OVPN_FILE}#g" \
+    -e "s#USER_NAME#${name}#g" \
+    ${USER_GUIDE_TMPL} > ${USER_GUIDE}
+
+rst2pdf ${USER_GUIDE}
+cp ${USER_GUIDE}.pdf $WORK_KEYS
+
 cd $WORK_DIR
 
 source vars
@@ -85,6 +102,8 @@ echo -e cert $name.crt'\n\r'>>$name.ovpn
 echo -e  key $name.key'\n\r'>>$name.ovpn
 
 
-tar -cvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt
+
+tar -cvf $name.tar $name.crt $name.key $name.ovpn ca_$name.crt ${USER_GUIDE}.pdf
 cp $name.tar $KEY
 
+echo your key have been stored in this folder :$KEY
