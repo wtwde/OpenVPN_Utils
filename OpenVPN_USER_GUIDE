@@ -1,0 +1,56 @@
+==================
+OpenVPN USER GUIDE
+==================
+
+On Windows machines
+-------------------
+
+1) Download the latest released OpenVPN from http://openvpn.net/index.php/open-source/downloads.html
+
+2) Run the installer to install OpenVPN client, a desktop icon called OpenVPN GUI will be created
+
+3) Right-click on the OpenVPN GUI desktop icon, select Properties
+
+  - In the Compatibility tab, place a check on the option "Run this program as an administrator"
+
+4) Copy the VPN configuration files(ca_test.crt/test.crt/test.key/test.ovpn) to C:\\Program Files\\OpenVPN\\config directory 
+
+5) Launch OpenVPN GUI, it will place itself on the icon tray
+
+6) Right click on an OpenVPN configuration file (test.ovpn) and select Start OpenVPN on this configuration file
+
+7) Once connected, you should be able to reach all test environment resources by IP address
+
+8) To disconnect the VPN connection, select the established profile name from the icon tray followed by the Disconnect action
+
+On Linux machines
+-----------------
+1) Install the openvpn package
+
+  - Debian/Ubuntu: sudo apt-get install openvpn
+  - RHEL/CentOS: add the EPEL repository then: yum install openvpn
+
+2) Copy the configuration files(ca_test.crt/test.crt/test.key/test.ovpn) to your home directory
+
+3) Run openvpn command and pass the desired profile to establish a VPN connection to the test environment
+
+  - If connecting from direct internet connection:  sudo openvpn test.ovpn
+  - Terminating the above command will disconnect the VPN connection.
+
+On Mac machines
+---------------
+1) Install tunnelblick OpenVPN client from here: https://code.google.com/p/tunnelblick/  
+
+2) After installation, double-click on the OpenVPN profile to import it. 
+
+3) In tunnelblick, under the Configurations tab select the imported profile.
+
+  - Change its setting for the option Set DNS/WINS to "Do no set nameserver"
+
+4) In the tunnelblick Preferences tab, place a check on the option "Inhibit automatic update checking and IP Address checking"
+
+5) To Connect, select the action "Connect test" by clicking on the tunnelblick menubar icon. 
+
+6) You'll need to provide your credential, please see chart below. You can use your Keychain to save your credential so it will not prompt next time.
+
+

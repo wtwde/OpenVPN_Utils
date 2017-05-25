@@ -66,6 +66,8 @@ USER_GUIDE_TMPL="$USER_GUIDE.tmpl"
 OVPN_FILE="$name.ovpn"
 CONF_FILES="ca_$name.crt/$name.crt/$name.key/$OVPN_FILE"
 
+apt-get install -y rst2pdf
+
 sed -e "s#CONF_FILES#${CONF_FILES}#g" \
     -e "s#OVPN_FILE#${OVPN_FILE}#g" \
     -e "s#USER_NAME#${name}#g" \
